@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'login.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,13 +15,30 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Firestore',
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const FirestoreScreen(),
+        '/login': (context) => const LoginScreen(),
+      },
+    );
+  }
+}
+
+/*
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Flutter Firestore',
       home: FirestoreScreen(),
     );
   }
 }
-
+*/
 class FirestoreScreen extends StatefulWidget {
   const FirestoreScreen({super.key});
 
@@ -70,6 +88,7 @@ class _FirestoreScreenState extends State<FirestoreScreen> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+
           children: [
             const Text('Prueba Firebase Firestore'),
             const SizedBox(height: 20),
@@ -81,6 +100,14 @@ class _FirestoreScreenState extends State<FirestoreScreen> {
             ElevatedButton(
               onPressed: checkFirestore,
               child: const Text('Comprobar Firestore'),
+            ),
+
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/login');
+              },
+              child: const Text('Go To Login'),
             ),
           ],
         ),
